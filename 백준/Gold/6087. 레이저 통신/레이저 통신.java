@@ -27,6 +27,7 @@ public class Main {
     static int n;
     static int m;
     static int visited[][];
+    static boolean isCheck[][][];
     static void BFS(XY start){
         PriorityQueue<XY> queue = new PriorityQueue<>();
         queue.add(start);
@@ -52,8 +53,9 @@ public class Main {
                     }
                 }
                 else{
-                    if(visited[nextx][nexty] >= now.cnt) {
+                    if(visited[nextx][nexty] >= now.cnt && (now.vector == -1  || !isCheck[nextx][nexty][now.cnt + i])) {
                         visited[nextx][nexty] = now.cnt;
+                        isCheck[nextx][nexty][now.cnt + i] = true;
                         queue.add(new XY(nextx, nexty, now.cnt, i));
                     }
                 }
@@ -70,6 +72,7 @@ public class Main {
 
         map = new int[n][m];
         visited = new int[n][m];
+        isCheck = new boolean[n][m][n * m];
         XY start = null;
         for(int array[] : visited){
             Arrays.fill(array,Integer.MAX_VALUE);
