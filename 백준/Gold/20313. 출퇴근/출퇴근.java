@@ -12,8 +12,8 @@ public class Main {
         @Override
         public int compareTo(Node o) {
             if (this.value == o.value) return 0;
-            else if (this.value < o.value) return 1;
-            else return -1;
+            else if (this.value < o.value) return -1;
+            else return 1;
         }
     }
     static class Edge{
