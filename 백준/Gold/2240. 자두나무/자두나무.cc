@@ -1,13 +1,13 @@
-#include <iostream>
+#include <stdio.h>
+#include <cmath>
 using namespace std;
 
 int arr[1001];
 int dp[1001][31][2];
 int main(void){
-    ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    int t,w; cin >> t >> w;
-    for (int i = 1; i <= t; ++i) cin >> arr[i];
-
+    int t,w;
+    scanf("%d %d", &t, &w);
+    for (int i = 1; i <= t; ++i) scanf("%d", &arr[i]);
     for (int i = 0; i <= w; ++i) {
         for (int j = 1; j <= t; ++j) {
             if (i == 0){
@@ -23,6 +23,6 @@ int main(void){
     for (int i = 0; i <= w; ++i) {
         ans = max(ans, max(dp[t][i][0], dp[t][i][1]));
     }
-    cout << ans;
+    printf("%d", ans);
     return 0;
 }
