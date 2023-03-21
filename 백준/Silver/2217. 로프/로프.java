@@ -5,13 +5,14 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         Integer arr[] = new Integer[n];
+        PriorityQueue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
         for (int i = 0;i<n;i++){
-            arr[i] = Integer.parseInt(br.readLine());
+            queue.add(Integer.parseInt(br.readLine()));
         }
-        Arrays.sort(arr, Collections.reverseOrder());
         int ans = 0;
         for (int i = 1;i<=n;i++){
-            ans = Math.max(ans, arr[i - 1] * i);
+            int k = queue.poll();
+            ans = Math.max(ans, k * i);
         }
         System.out.println(ans);
     }
