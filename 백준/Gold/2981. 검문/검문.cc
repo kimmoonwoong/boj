@@ -15,10 +15,9 @@ int main() {
 	int n; cin >> n;
 	vector<int> ans;
 	for (int i = 0; i < n; i++) cin >> arr[i];
-	sort(arr,arr + n);
-	int arr_gcd = arr[1] - arr[0];
+	int arr_gcd = abs(arr[1] - arr[0]);
 	for (int i = 2; i < n; i++) {
-		int dis = arr[i] - arr[i - 1];
+		int dis = abs(arr[i] - arr[i - 1]);
 		arr_gcd = gcd(dis, arr_gcd);
 	}
 	ans.push_back(arr_gcd);
