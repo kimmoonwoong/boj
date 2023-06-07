@@ -9,7 +9,6 @@ struct compare {
 		return a.second > b.second;
 	}
 };
-int INF = 1e9;
 const int n = 2001;
 vector<pair<int, int>> arr[n];
 bool visited[2001];
