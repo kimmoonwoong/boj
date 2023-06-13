@@ -1,21 +1,28 @@
 #include <iostream>
-#include <map>
-
+#include <queue>
 using namespace std;
-int INF = 1e5;
+
 int arr[1001];
-int dp[1001];
+bool visited[1001];
 int main() {
 	int n; cin >> n;
 	for (int i = 0; i < n; i++) cin >> arr[i];
-	fill(dp, dp + n, INF);
-	dp[0] = 0;
-	for (int i = 0; i < n; i++) {
-		for (int j = 1; j <= arr[i]; j++) {
-			if (i + j >= n) continue;			
-			dp[i + j] = min(dp[i] + 1, dp[i + j]);
+
+	queue<pair<int, int>> q;
+	q.push({ 0, 0 });
+	visited[0] = true;
+	while (!q.empty()) {
+		pair<int, int> now = q.front(); q.pop();
+;		if (now.first == n - 1) {
+			cout << now.second;
+			return 0;
+		}
+
+		for (int i = 1; i <= arr[now.first]; i++) {
+			if (now.first + i >= n || visited[now.first + i]) continue;
+			visited[now.first + i] = true;
+			q.push({ now.first + i, now.second + 1 });
 		}
 	}
-	if (dp[n - 1] == INF) cout << -1;
-	else cout << dp[n - 1];
+	cout << -1;
 }
