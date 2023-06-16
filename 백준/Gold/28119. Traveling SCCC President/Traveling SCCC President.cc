@@ -33,8 +33,8 @@ int main() {
 	int n, m, s; cin >> n >> m >> s;
 	for (int i = 0; i < m; i++) {
 		int u, v, w; cin >> u >> v >> w;
-		arr[u].push_back(make_pair(v, w));
-		arr[v].push_back(make_pair(u, w));
+		arr[u].push_back({v, w});
+		arr[v].push_back({u, w});
 	}
 
 	for (int i = 0; i < n; i++)
@@ -42,7 +42,6 @@ int main() {
 		int k; cin >> k;
 	}
 
-	int ans = Prim(make_pair(s, 0));
+	int ans = Prim({s, 0});
 	cout << ans;
-
 }
