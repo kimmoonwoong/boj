@@ -14,7 +14,7 @@ public class Main {
 
         @Override
         public int compareTo(Node o){
-            return this.d - o.d;
+            return this.c - o.c;
         }
     }
 
@@ -22,27 +22,38 @@ public class Main {
     static int m;
     static int k;
 
-    static int w[][];
+    static Integer w[][];
     static List<Node> list[];
     static int INF = Integer.MAX_VALUE;
-    static void Dekkstra(Node start){
+    static int Dekkstra(Node start){
         PriorityQueue<Node> queue = new PriorityQueue<>();
         queue.add(start);
         w[start.next][0] = 0;
-
+        for(int i = 1; i<=m;i++){
+            w[start.next][i] = 0;
+        }
+        int ans = INF;
         while (!queue.isEmpty()){
             Node now = queue.poll();
-            if (w[now.next][now.c] < now.d ) continue;
+            if (ans <= w[now.next][now.c] ) continue;
 
             for (Node next : list[now.next]){
                 if (now.c + next.c > m) continue;
 
+                if(ans<= w[now.next][now.c] + next.d) continue;
+
+                if (next.next == n){
+                    ans = w[now.next][now.c] + next.d;
+                    continue;
+                }
+
                 if (w[next.next][next.c + now.c] > w[now.next][now.c] + next.d){
+                    if(w[next.next][next.c + now.c].equals(INF)) queue.add(new Node(next.next,now.c + next.c, w[now.next][now.c] + next.d));
                     w[next.next][now.c + next.c] = w[now.next][now.c] + next.d;
-                    queue.add(new Node(next.next,now.c + next.c, w[next.next][now.c + next.c]));
                 }
             }
         }
+        return ans;
     }
     public static void main(String args[]) throws IOException, NumberFormatException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -56,8 +67,8 @@ public class Main {
             k = Integer.parseInt(st.nextToken());
 
             list = new ArrayList[n + 1];
-            w = new int[n + 1][m + 1];
-            for(int arr[] : w) Arrays.fill(arr, INF);
+            w = new Integer[n + 1][m + 1];
+            for(Integer arr[] : w) Arrays.fill(arr, INF);
             for(int i = 1;i<=n;i++) list[i] = new ArrayList<>();
             for(int i = 0;i<k;i++){
                 st = new StringTokenizer(br.readLine());
@@ -68,14 +79,14 @@ public class Main {
 
                 list[a].add(new Node(b,c,d));
             }
-
-            Dekkstra(new Node(1,0,0));
-            int ans = INF;
-            for(int i = 0;i<=m;i++){
-                ans = Math.min(ans, w[n][i]);
+            for(List<Node> list1 : list){
+                if(list1 == null) continue;
+                Collections.sort(list1);
             }
-            if (ans == INF) sb.append("Poor KCM").append("\n");
-            else sb.append(ans).append("\n");
+            int k = Dekkstra(new Node(1,0,0));
+
+            if (k == INF) sb.append("Poor KCM").append("\n");
+            else sb.append(k).append("\n");
 
         }
         System.out.println(sb);
