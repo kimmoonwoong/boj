@@ -7,9 +7,9 @@ int main() {
 	for (int i = 0; i < s.size(); i++) {
 		arr[i][s[i] - 'a'] = 1;
 	}
-	for (int i = 1; i < s.size(); i++) {
-		for (int j = 0; j < 26; j++) {
-			arr[i][j] += arr[i - 1][j];
+	for (int i = 0; i < 26; i++) {
+		for (int j = 1; j < s.size(); j++) {
+			arr[j][i] += arr[j - 1][i];
 		}
 	}
 	int q; cin >> q;
