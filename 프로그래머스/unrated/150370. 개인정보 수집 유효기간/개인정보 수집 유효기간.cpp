@@ -33,12 +33,10 @@ vector<int> solution(string today, vector<string> terms, vector<string> privacie
         vector<string> pri = split(se, ' ');
         vector<string> olday = split(pri[0], '.');
         olday[1] = to_string(stoi(olday[1]) + mp[pri[1]]);
-        int k = stoi(olday[1]);
-        while(k > 12){
-            olday[0] = to_string(stoi(olday[0]) + 1);
-            k -= 12;
+        if(stoi(olday[1]) > 12){
+            olday[0] = to_string(stoi(olday[0]) + stoi(olday[1]) / 12);
+            olday[1] = to_string(stoi(olday[1]) % 12);
         }
-        olday[1] = to_string(k);
         if(stoi(olday[2]) - 1 <= 0){
             olday[2] = "28";
             olday[1] = to_string(stoi(olday[1]) - 1);
@@ -47,6 +45,7 @@ vector<int> solution(string today, vector<string> terms, vector<string> privacie
             olday[2] = to_string(stoi(olday[2]) - 1);
         }
         int oldayarr[3] = {stoi(olday[0]), stoi(olday[1]), stoi(olday[2])};
+        cout << olday[0] << " " << olday[1] << " " << olday[2] << "\n";
         if(oldayarr[0] < todayarr[0]){
             answer.push_back(idx);
             idx++;
