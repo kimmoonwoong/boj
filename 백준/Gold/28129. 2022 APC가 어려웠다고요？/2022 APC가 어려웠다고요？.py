@@ -19,7 +19,7 @@ for i in range(0, n):
             if (j > 0):
                 dp[0][j] = dp[0][j - 1] + 1
             else:
-                dp[0][1] = 1
+                dp[0][j] = 1
 
     else:
         for j in range(s, e + 1):
