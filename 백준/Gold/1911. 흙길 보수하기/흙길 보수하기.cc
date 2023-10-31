@@ -20,7 +20,7 @@ int main() {
 
         x = max(x, arr[i].first);
 
-        int cnt = (arr[i].second - (x + 1)) / l + 1;
+        int cnt = (arr[i].second - 1 - x) / l + 1;
         ans += cnt;
         x += cnt * l;
     }
