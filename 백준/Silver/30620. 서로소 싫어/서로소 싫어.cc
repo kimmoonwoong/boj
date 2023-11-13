@@ -1,5 +1,4 @@
 #include <iostream>
-#define pii pair<int, int>
 #define ll long long
 using namespace std;
 
