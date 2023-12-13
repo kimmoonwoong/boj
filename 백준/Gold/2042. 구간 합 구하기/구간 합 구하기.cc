@@ -34,10 +34,13 @@ void update(int start, int end, int node, int idx, long long dif) {
 }
 
 int main() {
+    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     int n, m, k; cin >> n >> m >> k;
 
     for (int i = 0; i < n; i++) cin >> arr[i];
-    tree = new long long[4 * n];
+    int height = ceil(log2(n));
+    tree = new long long[1 << (height + 1)];
+  
     init(0, n - 1, 1);
 
     for (int i = 0; i < m + k; i++) {
