@@ -1,18 +1,12 @@
 #include <iostream>
 using namespace std;
-
+int x[3];
+int y[3];
 int main() {
 	ios::sync_with_stdio(false); cin.tie(NULL);
-	int x1, x2, x3, y1, y2, y3;
-	cin >> x1 >> y1;
-	cin >> x2 >> y2;
-	cin >> x3 >> y3;
-	if (x1 == x2) cout << x3 << " ";
-	else if (x1 == x3) cout << x2 << " ";
-	else cout << x1 << " ";
-
-	if (y1 == y2) cout << y3;
-	else if (y1 == y3) cout << y2;
-	else cout << y1;
+	for (int i = 0; i < 3; i++) cin >> x[i] >> y[i];
+	int xs = x[0] ^ x[1] ^ x[2];
+	int ys = y[0] ^ y[1] ^ y[2];
+	cout << xs << " " << ys;
 	return 0;
 }
