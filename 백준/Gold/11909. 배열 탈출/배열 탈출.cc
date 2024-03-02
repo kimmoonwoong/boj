@@ -1,73 +1,42 @@
 #include <iostream>
 #include <vector>
-#include <queue>
-#include <tuple>
+#include <algorithm>
 using namespace std;
 
-int next_x[2] = { 1, 0};
-int next_y[2] = { 0, 1};
-
 int map[2222][2222];
+int dp[2222][2222];
 int INF = 1e9;
 int main() {
 	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	int n; cin >> n;
-	vector<vector<int>> dist(n, vector<int>(n, INF));
+
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			cin >> map[i][j];
 		}
 	}
+	vector<vector<int>> dp(n, vector<int>(n,INF));
+	dp[0][0] = 0;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			if (i == 0 && j == 0) continue;
 
-	priority_queue<tuple<int, int, int>> pq;
-	dist[0][0] = 0;
-	pq.push({ 0, 0, 0 });
-
-	while (!pq.empty()) {
-		tuple<int, int, int> now = pq.top();
-		pq.pop();
-		int dis, x, y;
-		tie(dis, x, y) = now;
-		if (dist[x][y] < -dis) continue;
-		int nextx = x, nexty = y;
-		if (x == n - 1 && y == n - 1) break;
-		else if (x == n - 1) nexty = y + 1;
-		else if (y == n - 1) nextx = x + 1;
-		else {
-			for (int i = 0; i < 2; i++) {
-				nextx = x + next_x[i];
-				nexty = y + next_y[i];
-
-				if (map[x][y] > map[nextx][nexty]) {
-					if (dist[nextx][nexty] > -dis) {
-						dist[nextx][nexty] = -dis;
-						pq.push({ -dist[nextx][nexty], nextx, nexty });
-					}
-				}
-				else {
-					if (dist[nextx][nexty] > (-dis) + map[nextx][nexty] - map[x][y] + 1) {
-						dist[nextx][nexty] = (-dis) + map[nextx][nexty] - map[x][y] + 1;
-						pq.push({ -dist[nextx][nexty], nextx, nexty });
-					}
-				}
+			if (i == 0) {
+				int cur = map[i][j] < map[i][j - 1] ? 0 : map[i][j] - map[i][j - 1] + 1;
+				dp[i][j] = min(dp[i][j], cur + dp[i][j - 1]);
 			}
-			continue;
-		}
-
-		if (map[x][y] > map[nextx][nexty]) {
-			if (dist[nextx][nexty] > -dis) {
-				dist[nextx][nexty] = -dis;
-				pq.push({ -dist[nextx][nexty], nextx, nexty });
+			else if (j == 0) {
+				int cur = map[i][j] < map[i - 1][j] ? 0 : map[i][j] - map[i - 1][j] + 1;
+				dp[i][j] = min(dp[i][j], cur + dp[i - 1][j]);
 			}
-		}
-		else {
-			if (dist[nextx][nexty] > (-dis) + map[nextx][nexty] - map[x][y] + 1) {
-				dist[nextx][nexty] = (-dis) + map[nextx][nexty] - map[x][y] + 1;
-				pq.push({ -dist[nextx][nexty], nextx, nexty });
+			else {
+				int cur1 = map[i][j] < map[i - 1][j] ? 0 : map[i][j] - map[i - 1][j] + 1;
+				int cur2 = map[i][j] < map[i][j - 1] ? 0 : map[i][j] - map[i][j - 1] + 1;
+				dp[i][j] = min({ cur1 + dp[i - 1][j], cur2 + dp[i][j - 1], dp[i][j]});
 			}
-		}
 
+		}
 	}
 
-	cout << dist[n - 1][n - 1];
+	cout << dp[n - 1][n - 1];
 }
