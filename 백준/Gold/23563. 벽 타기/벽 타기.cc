@@ -48,6 +48,8 @@ int BFS(pii s, pii e) {
 }
 
 int main() {
+    ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+
     cin >> n >> m;
     vector<pii> wall;
     pii sa, ea;
