@@ -16,7 +16,7 @@
 
 ### 문제 설명
 
-<p style="text-align: center;"><img alt="" src="https://upload.acmicpc.net/7e8ca323-cce1-4d9c-ae65-79f312de6481/-/preview/" style="height: 330px; width: 300px;"></p>
+<p style="text-align: center;"><img alt="" src="" style="height: 330px; width: 300px;"></p>
 
 <blockquote>
 <p>그럼 제가 선배 맘에</p>
