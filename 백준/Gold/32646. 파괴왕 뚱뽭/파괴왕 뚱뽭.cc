@@ -30,9 +30,6 @@ void Dekkers() {
         auto [d, t1, point] = tp;
         pq.pop();
 
-        if (dist[t1][point.first][point.second] != d)
-            continue;
-
         for (int i = 0; i < 4; i++) {
             int nextx = point.first + next_x[i];
             int nexty = point.second + next_y[i];
